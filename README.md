@@ -6,14 +6,14 @@ Automated build of bta, an open-source Active Directory security audit framework
 Build from Docker Hub
 ---------------------
 
-    $ docker build -t bta 2xyo/docker-bta 
+    $ docker pull 2xyo/bta 
 
 
 Build from source
 -----------------
 
     $ git clone https://github.com/2xyo/docker-bta.git
-    $ cd docker-bta && docker build  -t bta .
+    $ cd docker-bta && docker build -t 2xyo/bta .
 
 
 Play with bta
@@ -36,12 +36,14 @@ Import the precious:
     $ 7z x ntds.7z
     $ docker run --link bta-mongo:bta-mongo \
         -v $HOME/data/ntdis:/tmp/ \
-        bta btaimport -C bta-mongo:27017:mydb /tmp/ntds.dit
+        2xyo/bta \
+        btaimport -C bta-mongo:27017:mydb /tmp/ntds.dit
 
 
 Have fun:
 
     $ docker run --link bta-mongo:bta-mongo \
+        2xyo/bta \
         btaminer -t ReST -C bta-mongo:27017:mydb --timelineCS created
 
 
@@ -50,4 +52,5 @@ Play inside the container for :
 
     $ docker run --link bta-mongo:bta-mongo \
         -v $HOME/data/ntdis:/tmp/ \
-        -it --entrypoint=/bin/bash   bta
+        -it --entrypoint=/bin/bash \
+        2xyo/bta
