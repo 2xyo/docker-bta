@@ -44,7 +44,7 @@ Have fun:
 
     $ docker run --link bta-mongo:bta-mongo \
         2xyo/bta \
-        btaminer -t ReST -C bta-mongo:27017:mydb --timelineCS created
+        btaminer -t ReST -C bta-mongo:27017:mydb Membership
 
 
 
