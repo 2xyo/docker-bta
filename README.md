@@ -1,25 +1,31 @@
-bta-docker (in progress..)
-=======================================
+# bta-docker (in progress..)
+
 
 Automated build of bta, an open-source Active Directory security audit framework.
 
-Build from Docker Hub
----------------------
+    
+## Docker image size
 
-    $ docker pull 2xyo/bta 
+[![](https://imagelayers.io/badge/2xyo/bta:latest.svg)](https://imagelayers.io/?images=2xyo/bta:latest 'latest')
 
 
-Build from source
------------------
+# Build 
+
+Build from source:
 
     $ git clone https://github.com/2xyo/docker-bta.git
     $ cd docker-bta && docker build -t 2xyo/bta .
 
 
-Play with bta
--------------
+Or download from Docker Hub:
 
-Start a mongodb container with persitence :
+    $ docker pull 2xyo/bta 
+
+
+# Play with bta
+
+
+Start a mongodb container with persitence:
 
     $ mkdir -p $HOME/data/bta
     $ docker run --name bta-mongo \
@@ -29,16 +35,19 @@ Start a mongodb container with persitence :
     $ docker ps
 
 
-Import the precious:
+Download a precious for testing (this is not the best sample `ntds.dit`):
 
-    $ mkdir -p $HOME/data/ntdis && cd $HOME/data/ntdis
+    $ mkdir -p $HOME/data/ntdis && \
+        cd $HOME/data/ntdis
     $ curl -L -O https://github.com/ANSSI-FR/AD-permissions/raw/master/dbbrowser/sample_data/ntds.7z
     $ 7z x ntds.7z
+
+Import the precious into mongodb:
+
     $ docker run --link bta-mongo:bta-mongo \
         -v $HOME/data/ntdis:/tmp/ \
         2xyo/bta \
         btaimport -C bta-mongo:27017:mydb /tmp/ntds.dit
-
 
 Have fun:
 
@@ -48,7 +57,7 @@ Have fun:
 
 
 
-Play inside the container for :
+Play inside the container:
 
     $ docker run --link bta-mongo:bta-mongo \
         -v $HOME/data/ntdis:/tmp/ \
